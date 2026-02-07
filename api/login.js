@@ -1,6 +1,3 @@
-import stores from "../data/stores.json";
-import users from "../data/users.json";
-
 export default function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({
@@ -18,21 +15,48 @@ export default function handler(req, res) {
     });
   }
 
-  // 🔍 CEK TOKO
+  // ===============================
+  // DATABASE TOKO + DC
+  // ===============================
+  const stores = [
+    {
+      storeId: "PB48",
+      storeName: "TALANG RIMBO LAMA [TIRO]",
+      address: "JL. SUPRAPTO RT.001 RW.003 CURUP TENG",
+      dcId: "PZ01"
+    },
+    {
+      storeId: "PB49",
+      storeName: "CURUP TENGAH",
+      address: "JL. MERDEKA CURUP",
+      dcId: "PZ01"
+    }
+  ];
+
+  // ===============================
+  // DATABASE USER
+  // ===============================
+  const users = [
+    {
+      nik: "22088181",
+      password: "123456",
+      name: "SATRIA DWI YANSAH",
+      storeId: "PB48"
+    }
+  ];
+
+  // cek toko
   const store = stores.find(s => s.storeId === storeId);
   if (!store) {
     return res.status(404).json({
       success: false,
-      message: "Kode toko tidak terdaftar"
+      message: "Toko tidak ditemukan"
     });
   }
 
-  // 🔍 CEK USER
+  // cek user
   const user = users.find(
-    u =>
-      u.nik === nik &&
-      u.password === password &&
-      u.storeId === storeId
+    u => u.nik === nik && u.password === password && u.storeId === storeId
   );
 
   if (!user) {
@@ -42,7 +66,9 @@ export default function handler(req, res) {
     });
   }
 
-  // ✅ LOGIN BERHASIL
+  // ===============================
+  // RESPONSE FINAL
+  // ===============================
   return res.status(200).json({
     success: true,
     user: {
@@ -52,7 +78,8 @@ export default function handler(req, res) {
     store: {
       storeId: store.storeId,
       storeName: store.storeName,
-      address: store.address
+      address: store.address,
+      dcId: store.dcId
     }
   });
 }
