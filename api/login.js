@@ -34,14 +34,13 @@ export default function handler(req, res) {
   ];
 
   // ===============================
-  // DATABASE USER
+  // DATABASE USER (BEBAS TOKO)
   // ===============================
   const users = [
     {
       nik: "22088181",
-      password: "123456",
-      name: "SATRIA DWI YANSAH",
-      storeId: "PB48"
+      password: "sat123123",
+      name: "SATRIA DWI YANSAH"
     }
   ];
 
@@ -54,9 +53,9 @@ export default function handler(req, res) {
     });
   }
 
-  // cek user
+  // cek user (TIDAK DIKUNCI TOKO)
   const user = users.find(
-    u => u.nik === nik && u.password === password && u.storeId === storeId
+    u => u.nik === nik && u.password === password
   );
 
   if (!user) {
